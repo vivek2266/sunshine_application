@@ -16,7 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dl.DTo.VisitUpdateRequest;
 import com.dl.annotation.TrackExecutionTime;
 import com.dl.entity.Visit;
+import com.dl.service.UserService;
 import com.dl.service.VisitService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping
@@ -25,49 +32,45 @@ public class VisitController {
 	@Autowired
 	private VisitService visitService;
 
-	 @TrackExecutionTime
+	@TrackExecutionTime
+	@Operation(summary = "add a new user to the system")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "user added successfully", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = VisitService.class)) }),
+			@ApiResponse(responseCode = "400", description = "validation error") })
 	@PostMapping("/addVisit")
 	public Visit addVisit(@RequestBody Visit visit) {
 		return visitService.addAllVisits(visit);
 	}
 
-	 @TrackExecutionTime
+	@TrackExecutionTime
+	@Operation(summary = "Fetch all visit object")
 	@GetMapping("/getAllVisits")
 	public List<Visit> getAllVisits() {
 		return visitService.getAllVisita();
 	}
-	 @TrackExecutionTime
+
+	@TrackExecutionTime
+	@Operation(summary = "Fetch  AllVisitsForPocApproval object")
 	@GetMapping("/getAllVisitaForPocAproval")
 	public List<Visit> getAllVisitsForPocApproval() {
 		return visitService.getAllVisitsForPocApproval();
 	}
 
-//	@GetMapping("/getAllVisitaForRSDAproval")
-//	public List<Visit> getAllVisitaForRSDAprovel() {
-//		return visitService.getAllVisitaForRSDAproval();
-//	}
-//
-//	@GetMapping("/getAllVisitaForQCAprovel")
-//	public List<Visit> getAllVisitaForQCAproval() {
-//		return visitService.getAllVisitaForQCAproval();
-//	}
-//
-//	@GetMapping("/getAllVisitaForHOAproval")
-//	public List<Visit> getAllVisitaForHOAproval() {
-//		return visitService.getAllVisitaForHOAproval();
-//	}
-
-//	@PutMapping("/updateVisitStatus/{visitId}")
-//	public Visit updateVisitStatus(@PathVariable int visitId, @RequestBody Visit visit) {
-//		return visitService.updateVisitStatus(visitId, visit);
-//	}
-	 @TrackExecutionTime
+	@TrackExecutionTime
+	@Operation(summary = "Delete deleteVisit by visitId")
 	@DeleteMapping("/deleteVisit/{visitId}")
 	public String deleteVisitById(@PathVariable int visitId) {
 		visitService.deleteVisitById(visitId);
 		return "deleted successfully";
 	}
-	 @TrackExecutionTime
+
+	@Operation(summary = "add updateRecordsAccordingToStatus record into the system")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "updateRecordsAccordingToStatus record added successfully", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = VisitService.class)) }),
+			@ApiResponse(responseCode = "400", description = "updateRecordsAccordingToStatus is  not added") })
+	@TrackExecutionTime
 	@PostMapping("/updateRecordsAccordingToStatus")
 	public ResponseEntity<String> updateRecordsAccordingToStatus(@RequestBody VisitUpdateRequest visitUpdateRequest) {
 
@@ -81,7 +84,8 @@ public class VisitController {
 		}
 	}
 
-	 @TrackExecutionTime
+	@TrackExecutionTime
+	@Operation(summary = "Fetch all VisitsForStore object")
 	@GetMapping("/getVisitsForRequiredStoreId/{storeId}")
 	public Object getVisitsForStore(@PathVariable int storeId) {
 		return visitService.getAllVisitsForStore(storeId);

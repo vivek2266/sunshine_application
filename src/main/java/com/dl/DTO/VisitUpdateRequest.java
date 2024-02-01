@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.dl.entity.StoreAttributeDetails;
 import com.dl.entity.Stores;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,14 +21,11 @@ public class VisitUpdateRequest {
 	private String status;
 	private boolean isProcessed = false; 
 	
-//	@JsonBackReference(value = "visit-store")
-	@JsonIgnore
 	private Stores storeId;
 
 	private String comment;
 
-//	@JsonManagedReference(value = "visit-details")
-	@JsonIgnore
+
 	private List<StoreAttributeDetails> storeAttributeDetailsList;
 	
 	

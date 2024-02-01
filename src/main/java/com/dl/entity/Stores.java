@@ -1,5 +1,6 @@
 package com.dl.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -30,14 +31,14 @@ public class Stores {
 	private int pincode;
 	private boolean isActive = true;
 
-//	@ManyToMany(mappedBy = "assignStores")
-//	private List<Users> users;
 
-	@OneToMany(mappedBy = "storeId", cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "store-attributeDetails")
+	@OneToMany(mappedBy = "storeId")
+	@JsonManagedReference(value = "store-Attribute-details")
+
 	private List<StoreAttributeDetails> storeAttributeDetails;
 
-	@OneToMany(mappedBy = "storeId", cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "store-visits")
+	@OneToMany(mappedBy = "storeId")
+	@JsonManagedReference(value = "store-details")
+	
 	private List<Visit> visits;
 }

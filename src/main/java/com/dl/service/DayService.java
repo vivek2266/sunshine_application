@@ -26,7 +26,6 @@ public class DayService {
 	public Day deleteDayById(int dayNo) {
 
 		Optional<Day> optionalDay = dayRepo.findById(dayNo);
-		// here ispresent is an inbuilt method
 		if (optionalDay.isPresent()) {
 			Day day = optionalDay.get();
 			day.setActive(false);

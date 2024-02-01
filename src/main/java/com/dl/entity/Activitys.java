@@ -29,7 +29,7 @@ public class Activitys  {
 	private String activityName;
 	private boolean isActive = true;
 
-	@OneToMany(targetEntity = Attributes.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Attributes.class)
 	@JoinColumn(name = "activity_Id", referencedColumnName = "activityId")
 	private List<Attributes> attributes;
 

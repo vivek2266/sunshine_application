@@ -1,7 +1,8 @@
 package com.dl.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,19 +25,19 @@ public class StoreAttributeDetails {
 
     @ManyToOne
     @JoinColumn(name = "attribute_id", referencedColumnName = "attributeId")
-    @JsonManagedReference(value = "attribute-details")
+    //@JsonManagedReference(value = "attribute-details")//
     private Attributes attributeId;
 
     private String attributeValue;
 
     @ManyToOne
     @JoinColumn(name = "visit_id", referencedColumnName = "visitId")
-    @JsonManagedReference(value = "visit-details")
+    //@JsonManagedReference(value = "visit-Attribute")
     private Visit visitId;
 
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "storeId")
-    @JsonBackReference(value = "store-details")
+    @JsonBackReference(value = "store-Attribute-details")
     private Stores storeId;
 
     private boolean isActive = true;

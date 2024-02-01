@@ -33,11 +33,11 @@ public class Visit {
 
     @ManyToOne
     @JoinColumn(name = "storeId")
-    @JsonBackReference(value = "visit-store")
+    @JsonBackReference(value = "store-details")
     private Stores storeId;
 
-    @OneToMany(mappedBy = "visitId", cascade = CascadeType.ALL)
-    @JsonBackReference(value = "visit-attribute")
+    @OneToMany(mappedBy = "visitId")
+   @JsonBackReference(value = "visit-Attribute")
 
     private List<StoreAttributeDetails> storeAttributeDetailsList;
    
